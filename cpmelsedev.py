@@ -1,6 +1,6 @@
 import requests
 from time import sleep
-BASE_URL: str = "https://rhvendas.squareweb.app/"
+BASE_URL: str = "https://rhvendas.squareweb.app/api"
 
 class CPMElsedev:
 
