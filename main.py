@@ -13,8 +13,8 @@ from pystyle import Colors, Colorate
 
 from cpmelsedev import CPMElsedev
 
-__CHANNEL_USERNAME__ = "+5569993571857"
-__GROUP_USERNAME__   = "+5569993571857"
+__CHANNEL_USERNAME__ = "5569993571857"
+__GROUP_USERNAME__   = "5569993571857"
 
 def signal_handler(sig, frame):
     print("\n Bye Bye...")
