@@ -9,25 +9,25 @@ class CPMElsedev:
         self.access_key = access_key
     
     def login(self, email, password) -> int:
-        payload = { "email_da_conta": email, "senha_da_conta": password }
-        params = { "chave_acesso": self.access_key }
-        response = requests.post(f"{BASE_URL}/login_conta", params=params, data=payload)
+        payload = { "account_email": email, "account_password": password }
+        params = { "key": self.access_key }
+        response = requests.post(f"{BASE_URL}/account_login", params=params, data=payload)
         response_decoded = response.json()
         if response_decoded.get("ok"):
-            self.auth_token = response_decoded.get("autenticacao")
+            self.auth_token = response_decoded.get("auth")
         return response_decoded.get("error")
     
     def register(self, email, password) -> int:
-        payload = { "email_da_conta": email, "senha_da_conta": password }
-        params = { "chave_acesso": self.access_key }
-        response = requests.post(f"{BASE_URL}/registrar_conta", params=params, data=payload)
+        payload = { "account_email": email, "account_password": password }
+        params = { "key": self.access_key }
+        response = requests.post(f"{BASE_URL}/account_register", params=params, data=payload)
         response_decoded = response.json()
         return response_decoded.get("error")
     
     def delete(self):
-        payload = { "autenticacao_conta": self.auth_token }
-        params = { "chave_acesso": self.access_key }
-        requests.post(f"{BASE_URL}/deletar_conta", params=params, data=payload)
+        payload = { "account_auth": self.auth_token }
+        params = { "key": self.access_key }
+        requests.post(f"{BASE_URL}/account_delete", params=params, data=payload)
 
     def get_player_data(self) -> any:
         payload = { "account_auth": self.auth_token }
