@@ -8,7 +8,7 @@ use skrtdev\Telegram\Message;
 use skrtdev\Telegram\CallbackQuery;
 
 define("BOT_TOKEN", '7334637450:AAGreWk1PwIKBCm78p_8bn0voRZP0IrpRI8');
-define("DEVELOPER_ID",6543275207 );
+define("DEVELOPER_ID", 6543275207);
 define("CHANNEL_ID", -1002366719712);
 define("LOGGING_ID", -1002254600693);
 
@@ -36,11 +36,11 @@ function isBot($customer_id) {
 
 // Função para enviar a resposta com os dados do cliente
 function sendCustomerInfo(Message $message, $customer) {
-    $msg  = "INFORMACOES DO CLIENTE:\n\n";
-    $msg .= "*ID TELEGRAM*: `" . escapeMarkdown($customer->getTelegramID()) . "`\n";
-    $msg .= "*CHAVE DE ACESSO*: ||" . escapeMarkdown($customer->getAccessKey()) . "||\n";
-    $msg .= "*SALDO*: `" . escapeMarkdown($customer->getIsUnlimited() ? 'Ilimitado' : number_format($customer->getCredits(), 0, '', '')) . "`\n\n";
-    $msg .= "*BLOQUEADO*: `" . escapeMarkdown(($customer->getIsBlocked() ? "SIM" : "NAO")) . "`";
+    $msg  = "Customer Information:\n\n";
+    $msg .= "*Telegram ID*: `" . escapeMarkdown($customer->getTelegramID()) . "`\n";
+    $msg .= "*Access Key*: ||" . escapeMarkdown($customer->getAccessKey()) . "||\n";
+    $msg .= "*Balance*: `" . escapeMarkdown($customer->getIsUnlimited() ? 'Unlimited' : number_format($customer->getCredits(), 0, '', '')) . "`\n\n";
+    $msg .= "*Blocked*: `" . escapeMarkdown(($customer->getIsBlocked() ? "Yes" : "No")) . "`";
     
     $message->reply($msg);
 }
@@ -94,14 +94,14 @@ $Bot->onCommand('start', function (Message $message) use ($Bot) {
         return;
     }
 
-    $msg = "BEM VINDO AO BOT *RH VENDAS*!\nFICAMOS FELIZES EM RECEBER VOCE AQUI\n";
-    $msg .= "AQUI ESTAO ALGUNS DETALHES DA SUA CONTA:\n\n";
-    $msg .= "*SEU ID NO TELEGRAM*: `" . escapeMarkdown($customer->getTelegramID()) . "`\n";
-    $msg .= "*SUA CHAVE DE ACESSO *: ||" . escapeMarkdown($customer->getAccessKey()) . "||\n";
-    $msg .= "*SALDO*: `" . escapeMarkdown($customer->getIsUnlimited() ? 'ilimitado' : number_format($customer->getCredits(), 0, '', '')) . "`\n\n";
-    $msg .= "FIQUE AVONTADE PARA EXPLORAR NOSSOS RECURSOS\n";
-    $msg .= "DUVIDAS ? NOS CHAME NO SUPORTE\n\n";
-    $msg .= "APROVEITE SUA FERRAMENTA";
+    $msg = "Welcome to *CPMElsedev*!\nWe're excited to have you on board\n";
+    $msg .= "Here are some important details about your account:\n\n";
+    $msg .= "*Telegram ID*: `" . escapeMarkdown($customer->getTelegramID()) . "`\n";
+    $msg .= "*Access Key*: ||" . escapeMarkdown($customer->getAccessKey()) . "||\n";
+    $msg .= "*Balance*: `" . escapeMarkdown($customer->getIsUnlimited() ? 'Unlimited' : number_format($customer->getCredits(), 0, '', '')) . "`\n\n";
+    $msg .= "Feel free to explore the features we offer\n";
+    $msg .= "If you have any questions or need assistance, just let us know\n\n";
+    $msg .= "Enjoy your experience!";
 
     $msg = escapeMarkdown($msg);  // Escapa todos os caracteres especiais
 
@@ -110,7 +110,7 @@ $Bot->onCommand('start', function (Message $message) use ($Bot) {
             'resize_keyboard' => true,
             'inline_keyboard' => [
                 [
-                    ['text' => 'REVOGAR CHAVE DE ACESSO', 'callback_data' => 'REVOGAR CHAVE DE ACESSO']
+                    ['text' => 'Revoke Access Key', 'callback_data' => 'revoke_access_key']
                 ]
             ]
         ])
@@ -125,14 +125,14 @@ $Bot->onCallbackData('back_home', function (CallbackQuery $callback_query) {
         return;
     }
 
-    $msg = " BEM VINDO AO BOT*RH VENDAS*!\nFICAMOS FELIZES EM RECEBER VOCE AQUI\n\n";
-    $msg .= "AQUU ESTAO ALGUNS DETALHES DA SUA CONTA:\n";
-    $msg .= "*SEU ID NO TELEGRAM*: `" . escapeMarkdown($customer->getTelegramID()) . "`\n";
-    $msg .= "*CHAVE DE ACESSO*: ||" . escapeMarkdown($customer->getAccessKey()) . "||\n";
-    $msg .= "*SALDO*: `" . escapeMarkdown($customer->getIsUnlimited() ? 'ilimitado' : number_format($customer->getCredits(), 0, '', '')) . "`\n\n";
-    $msg .= "FIQUE AVONTADE PARA EXPLORAR NOSSOS RECURSOS\n";
-    $msg .= "DUVIDAS ? NOS CHAME NO SUPORTE \n\n";
-    $msg .= "APROVEITE A FERRAMENTA";
+    $msg = "Hello, and welcome to *CPMElsedev*!\nWe're excited to have you on board\n\n";
+    $msg .= "Here are some important details about your account:\n";
+    $msg .= "*Telegram ID*: `" . escapeMarkdown($customer->getTelegramID()) . "`\n";
+    $msg .= "*Access Key*: ||" . escapeMarkdown($customer->getAccessKey()) . "||\n";
+    $msg .= "*Balance*: `" . escapeMarkdown($customer->getIsUnlimited() ? 'Unlimited' : number_format($customer->getCredits(), 0, '', '')) . "`\n\n";
+    $msg .= "Feel free to explore the features we offer\n";
+    $msg .= "If you have any questions or need assistance, just let us know\n\n";
+    $msg .= "Enjoy your experience!";
 
     $msg = escapeMarkdown($msg);  // Escapa todos os caracteres especiais
 
@@ -142,8 +142,8 @@ $Bot->onCallbackData('back_home', function (CallbackQuery $callback_query) {
             'inline_keyboard' => [
                 [
                     [
-                        'text' => 'REVOGAR CHAVE DE ACESSO',
-                        'callback_data' => 'revogar_chave_acesso'
+                        'text' => 'Revoke Access Key',
+                        'callback_data' => 'revoke_access_key'
                     ]
                 ]
             ]
@@ -151,11 +151,11 @@ $Bot->onCallbackData('back_home', function (CallbackQuery $callback_query) {
     ]);
 });
 
-$Bot->onCallbackData('revogar_chave_acesso', function (CallbackQuery $callback_query) {
+$Bot->onCallbackData('revoke_access_key', function (CallbackQuery $callback_query) {
     $customer = new Customer($callback_query->from->id);
     $nak = $customer->revokeAccessKey();
-    $msg = "SUA NOVA CHAVE DE ACESSO E: ||" . escapeMarkdown($nak) . "||";
-    $callback_query->answer('SUA CHAVE DR ACESSO FOI REVOGADA COM SUCESSO!');
+    $msg = "Your new Access Key is: ||" . escapeMarkdown($nak) . "||";
+    $callback_query->answer('Your Access Key Changed Successfully!');
     $callback_query->message->editText($msg, [
         'reply_markup' => json_encode([
             'resize_keyboard' => true,
@@ -183,7 +183,7 @@ $Bot->onCommand('check', function (Message $message, array $args = []) use ($Bot
 
     // Verificar se é um bot
     if(isBot($customer_id)) {
-        $message->reply("o bot nao pode usar esse servico!");
+        $message->reply("bot can't use this service!");
         return;
     }
 
@@ -209,7 +209,7 @@ $Bot->onCommand('give', function (Message $message, array $args = []) use ($Bot)
 
     // Verificar se é um bot
     if(isBot($customer_id)) {
-        $message->reply("o bot nao pode usar esse servico!");
+        $message->reply("bot can't use this service!");
         return;
     }
 
@@ -219,9 +219,9 @@ $Bot->onCommand('give', function (Message $message, array $args = []) use ($Bot)
         $customer->setCredits($balance, "[+]");
 
         // Exibir a mensagem
-        $msg = "*SALDO ADICIONADO COM SUCESSO*\n\n";
-        $msg .= "SALDO ANTIGI: `" . escapeMarkdown(number_format($customer->getCredits(), 0, '', '')) . "`\n";
-        $msg .= "NOVO SALDO: `" . escapeMarkdown(number_format($customer->getCredits() + $balance, 0, '', '')) . "`";
+        $msg = "*Balance added successfully*\n\n";
+        $msg .= "old Balance: `" . escapeMarkdown(number_format($customer->getCredits(), 0, '', '')) . "`\n";
+        $msg .= "new Balance: `" . escapeMarkdown(number_format($customer->getCredits() + $balance, 0, '', '')) . "`";
         $message->reply($msg);
 
         // Log de administradores
@@ -468,10 +468,10 @@ $Bot->onCommand('limited', function (Message $message, array $args = []) use ($B
 $Bot->onCommand('balance', function (Message $message) use ($Bot) {
     $customer_id = $message->from->id;
     $customer = new Customer($customer_id);
-    $msg  = "SUAS INFORMACOES:\n\n";
-    $msg .= "*ID TELEGRAM*: " . escapeMarkdown($customer->getTelegramID()) . "\n";
-    $msg .= "*SALDO*: `" . escapeMarkdown($customer->getIsUnlimited() ? "ilimitado" : number_format($customer->getCredits(), 0, '', '')) . "`\n\n";
-    $msg .= "*BLOQUEADO*: `" . escapeMarkdown($customer->getIsBlocked() ? "SIM" : "NAO") . "`";
+    $msg  = "Customer Information:\n\n";
+    $msg .= "*Telegram ID*: " . escapeMarkdown($customer->getTelegramID()) . "\n";
+    $msg .= "*Balance*: `" . escapeMarkdown($customer->getIsUnlimited() ? "Unlimited" : number_format($customer->getCredits(), 0, '', '')) . "`\n\n";
+    $msg .= "*Blocked*: `" . escapeMarkdown($customer->getIsBlocked() ? "Yes" : "No") . "`";
     $message->reply($msg);
 });
 
